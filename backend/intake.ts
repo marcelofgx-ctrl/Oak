@@ -1,4 +1,5 @@
 import { createClient } from 'npm:@supabase/supabase-js@2.57.4'
+import { dispatchWithRetry } from './push-delivery.ts'
 import { validateStep, validatePhotos } from './requestModel.js'
 const allowed = ['https://oak-79f.pages.dev', 'http://127.0.0.1:5173', 'http://localhost:5173']
 Deno.serve(async (req: Request) => {
@@ -72,6 +73,7 @@ Deno.serve(async (req: Request) => {
   }
   const finished = await db.from('oak_requests').update({photos,ready:true}).eq('id',id)
   if (finished.error) throw finished.error
+  EdgeRuntime.waitUntil(dispatchWithRetry(db).catch(()=>console.error('Push dispatch failed; queued for retry')))
   return reply({reference:id},201)
  } catch {
   if (uploaded.length) await db.storage.from('oak-request-photos').remove(uploaded)
