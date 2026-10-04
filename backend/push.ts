@@ -25,7 +25,9 @@ Deno.serve(async(req:Request)=>{
    if(existing.data&&existing.data.user_id!==user.id)return reply({error:'Este dispositivo está asociado a otro acceso. Desactivá sus alertas primero.'},409)
    const count=await db.from('oak_push_subscriptions').select('endpoint',{count:'exact',head:true}).eq('user_id',user.id)
    if(count.error||(!existing.data&&(count.count||0)>=10))return reply({error:'Límite de dispositivos alcanzado.'},409)
-   const result=await db.from('oak_push_subscriptions').upsert({endpoint:sub.endpoint,user_id:user.id,subscription:sub})
+   const subscription={endpoint:sub.endpoint,expirationTime:null,keys:{p256dh:sub.keys.p256dh,auth:sub.keys.auth}}
+   // Insert conflicts cannot transfer a device between operators.
+   const result=existing.data?await db.from('oak_push_subscriptions').update({subscription}).eq('endpoint',sub.endpoint).eq('user_id',user.id):await db.from('oak_push_subscriptions').insert({endpoint:sub.endpoint,user_id:user.id,subscription})
    if(result.error)throw result.error
    return reply({ok:true})
   }
