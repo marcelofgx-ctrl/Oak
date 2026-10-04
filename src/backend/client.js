@@ -32,8 +32,12 @@ export async function sendRequest(data, photos, id) {
     }
     return result.reference
   } catch (error) {
-    if (error?.name === 'AbortError') throw new Error('The upload took too long. Check your connection and try again; your form is still here.')
-    if (error instanceof TypeError) throw new Error('We could not reach Oak & Ember. Check your connection and try again; your form is still here.')
+    if (error?.name === 'AbortError') {
+      throw new Error('The upload took too long. Check your connection and try again; your form is still here.', { cause: error })
+    }
+    if (error instanceof TypeError) {
+      throw new Error('We could not reach Oak & Ember. Check your connection and try again; your form is still here.', { cause: error })
+    }
     throw error
   } finally {
     window.clearTimeout(timeout)
