@@ -1,4 +1,5 @@
 export const statuses = ['Nueva', 'Por contactar', 'Esperando información', 'Presupuesto enviado', 'Aceptada', 'Cerrada']
+
 export function validateVisit(visit, visits) {
   if (!visit.date || !visit.time || !visit.duration || !visit.requestId) return 'Completá fecha, hora, duración y consulta.'
   const start = new Date(`${visit.date}T${visit.time}`).getTime()
@@ -13,14 +14,9 @@ export function validateVisit(visit, visits) {
   }
   return ''
 }
+
 export function validateQuote(amount, scope) {
   if (!scope.trim()) return 'Describí el alcance del presupuesto.'
   if (!Number.isFinite(Number(amount)) || Number(amount) <= 0) return 'Ingresá un importe positivo en USD.'
   return ''
-}
-export function demoRequests() {
-  return [
-    {id:'DEMO-01',name:'Cliente de muestra A',service:'Chimney cleaning',zip:'30301',phone:'(404) 555-0100',email:'demo-a@example.com',details:'Consulta ficticia: limpieza para la próxima temporada.',status:'Nueva',notes:'',quote:null},
-    {id:'DEMO-02',name:'Cliente de muestra B',service:'Chimney repair',zip:'30301',phone:'(404) 555-0101',email:'demo-b@example.com',details:'Consulta ficticia: revisar una filtración. Puede requerir evaluación.',status:'Por contactar',notes:'Pedir fotos antes de proponer una evaluación.',quote:null},
-  ]
 }
