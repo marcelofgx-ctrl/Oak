@@ -1,11 +1,11 @@
-# Oak & Ember Android 1.1
+# Oak & Ember Android 1.1.1
 
-Download: https://oak-79f.pages.dev/downloads/oak-ember.apk (redirects to version 1.1).
-Versioned file: https://oak-79f.pages.dev/downloads/oak-ember-1.1.apk.
+Download: https://oak-79f.pages.dev/downloads/oak-ember.apk (redirects to version 1.1.1).
+Versioned file: https://oak-79f.pages.dev/downloads/oak-ember-1.1.1.apk.
 
 ## Update and activate alerts
 
-1. Download and install over the existing Oak & Ember app. Do not uninstall first. Package com.oakandember.operator and the release certificate are unchanged; versionCode is 2 / versionName 1.1.
+1. Download and install over the existing Oak & Ember app. Do not uninstall first. Package com.oakandember.operator and the release certificate are unchanged; versionCode is 3 / versionName 1.1.1.
 2. Keep Chrome updated. Open the Oak & Ember icon; sign in if requested.
 3. App y alertas → Activar alertas. Accept the notification permission.
 4. Probar alerta; check the notification on the phone. Android notification settings, battery restrictions and Do Not Disturb can affect delivery or banners.
@@ -20,7 +20,7 @@ Web Push uses the existing authenticated oak-push endpoint, server-side VAPID si
 
 Notification payloads reveal no customer details. An authorized login is required to read the private inbox. Statuses, notes and internal quotes remain on the same Oak backend used by iPhone and the web panel. Closing the session/desactivating alerts cancels the browser subscription. Authentication is now in Chrome's origin storage, so the former WebView session is not migrated; a new login can be required, but stored inquiries and quotes are unchanged.
 
-See docs/ios-app.md for server delivery, retry limits and subscription ownership checks. Version 1.0 remains archived and has no push integration.
+See docs/ios-app.md for server delivery, retry limits and subscription ownership checks. Version 1.0 remains archived and has no push integration. Version 1.1 had a startup defect and its public download redirects to the corrected 1.1.1.
 
 ## Build and signing
 
@@ -46,3 +46,9 @@ Sign using scripts/sign-android.sh <private-keystore> <password-file> <output-ap
 - Physical Android installation, fullscreen verification, native delegated permission prompts and push receipt are not verified by Chromium emulation. Use Probar alerta on the intended phone. The environment's prior Android emulator had an unrelated WebView crash and no compatible Chrome installed.
 
 No Play Store publication, automatic appointment, payment, email or SMS is introduced.
+
+## Startup correction in 1.1.1
+
+Android Browser Helper invokes ManageDataLauncherActivity.addSiteSettingsShortcut during launch. The 1.1 manifest omitted that activity, causing IllegalArgumentException: Component class ...ManageDataLauncherActivity does not exist. The crash was reproduced in the Android 15 emulator. Version 1.1.1 declares the management activity, its private-panel URL and application manageSpaceActivity. The same signing key and a higher versionCode preserve update compatibility.
+
+The regression script scripts/check-android-startup.py checks the packaged manifest, installs with -r on a disposable emulator, performs two cold starts and rejects any Oak crash in logcat. It refuses physical devices. The complete Chrome workspace and actual background push still require the phone; no compatible Chrome is installed in this emulator.

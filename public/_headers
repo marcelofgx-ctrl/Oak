@@ -1,7 +1,7 @@
 /downloads/*
   Content-Type: application/vnd.android.package-archive
   Content-Disposition: attachment
-  Cache-Control: public, max-age=300
+  Cache-Control: no-store
 /.well-known/assetlinks.json
   Content-Type: application/json
   Cache-Control: public, max-age=300
