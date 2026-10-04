@@ -25,4 +25,4 @@ The Android build deliberately excludes `public/` except for the operator logo; 
 
 ESLint, existing 11 model tests, website and Android interface builds; Android release compilation and lint (warnings only); APK signature verification. Browser testing of the packaged interface against the real backend confirmed authorized login, private inbox, notes/quote/status persistence after reload, offline-write blocking and logout. Layout checked at 320/390/1440 px. Temporary fixtures are removed after checking.
 
-Installation and device-specific behavior require testing on the intended phone. Play Store publication, push notifications, automatic email/SMS, native customer app and persistent visit scheduling are outside this release.
+The signed APK installed successfully and its activity launched in an Android 15 emulator. Full native functional behavior and device-specific behavior still require testing on the intended phone. Play Store publication, push notifications, automatic email/SMS, native customer app and persistent visit scheduling are outside this release.
