@@ -36,9 +36,11 @@ jobs:
         with:
           gradle-version: "8.9"
 
-      - name: Verify live backend configuration
+      - name: Verify live backend and v0.2.1 UI
         run: |
           grep -q 'ttroukmpyerhtkskpdeg.supabase.co' android/app/src/main/java/com/oakandember/admin/SupabaseConfig.kt
+          grep -q 'statusBarsPadding' android/app/src/main/java/com/oakandember/admin/MainActivityV021.kt
+          grep -q 'CollapsibleDayHeader' android/app/src/main/java/com/oakandember/admin/MainActivityV021.kt
           if grep -R -q 'Emily Carter\|James Miller\|Sarah Thompson\|Robert Wilson' android/app/src/main/java; then
             echo 'Demo records are still present in native source.'
             exit 1
@@ -49,17 +51,17 @@ jobs:
         run: gradle :app:assembleDebug --stacktrace
 
       - name: Rename APK
-        run: cp android/app/build/outputs/apk/debug/app-debug.apk OakAndEmber_Admin_Native_Live_v0.2.0.apk
+        run: cp android/app/build/outputs/apk/debug/app-debug.apk OakAndEmber_Admin_Native_Live_v0.2.1.apk
 
       - name: SHA-256
-        run: sha256sum OakAndEmber_Admin_Native_Live_v0.2.0.apk | tee OakAndEmber_Admin_Native_Live_v0.2.0.sha256
+        run: sha256sum OakAndEmber_Admin_Native_Live_v0.2.1.apk | tee OakAndEmber_Admin_Native_Live_v0.2.1.sha256
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: OakAndEmber_Admin_Native_Live_v0.2.0
+          name: OakAndEmber_Admin_Native_Live_v0.2.1
           path: |
-            OakAndEmber_Admin_Native_Live_v0.2.0.apk
-            OakAndEmber_Admin_Native_Live_v0.2.0.sha256
+            OakAndEmber_Admin_Native_Live_v0.2.1.apk
+            OakAndEmber_Admin_Native_Live_v0.2.1.sha256
           if-no-files-found: error
           retention-days: 30
