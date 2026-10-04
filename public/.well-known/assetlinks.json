@@ -1,0 +1,14 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.oakandember.operator",
+      "sha256_cert_fingerprints": [
+        "12:CE:D2:62:10:2C:C2:C3:01:68:CF:E1:B4:DC:C9:C0:18:35:93:00:6D:F6:B6:96:E8:FE:7F:33:54:85:21:FA"
+      ]
+    }
+  }
+]
