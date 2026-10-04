@@ -2,33 +2,45 @@
 
 Native Android administration app for Oak & Ember.
 
-## Native Android v0.1.0
+## Native Android v0.2.0 — live database
 
 This is a real Android application built with Kotlin + Jetpack Compose. It does **not** use WebView and does not wrap a website.
 
-Current prototype includes:
+The app now connects directly to the production Oak & Ember Supabase project:
 
-- Dashboard
-- Service requests
-- Calendar
-- Client list
-- Native request detail dialog
-- Native phone dialer integration
-- Native map intent integration
-- GitHub Actions APK build
+- Authenticated operator sign-in
+- RLS-protected live requests from `oak_requests`
+- Automatic refresh every 30 seconds while the app is open
+- Manual refresh
+- Search and status filtering
+- Dashboard based on real records
+- Clients derived from real requests
+- Calendar / unscheduled work view
+- Native call, email and map actions
+- Private customer photos loaded from `oak-request-photos`
+- Operator-only status and internal note updates written back to Supabase
+- Session tokens stored with Android encrypted preferences
 
-The current data is local demo data so the interface can be installed and evaluated before the backend contract is finalized.
-
-Next stage:
-
-1. Supabase project and schema
-2. Authentication
-3. Real service requests
-4. Photos / Storage
-5. Quotes
-6. Push notifications
-7. Signed release APK
+No demo customer records remain in the native source.
 
 Package: `com.oakandember.admin`
 
-Version: `0.1.0`
+Version: `0.2.0` (`versionCode 2`)
+
+## Backend
+
+Supabase project: `Oak & Ember`
+
+Project ref: `ttroukmpyerhtkskpdeg`
+
+The publishable key in the Android app is intentionally a client-side publishable key. Database access remains protected by Supabase Auth + Row Level Security. No service-role key is stored in the APK.
+
+## Build
+
+GitHub Actions workflow:
+
+`.github/workflows/android-native.yml`
+
+Artifact:
+
+`OakAndEmber_Admin_Native_Live_v0.2.0.apk`
