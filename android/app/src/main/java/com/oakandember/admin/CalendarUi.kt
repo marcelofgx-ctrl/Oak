@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.weight
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
@@ -30,9 +29,7 @@ import java.util.Locale
 
 private val CalendarInk = Color(0xFF2C2621)
 private val CalendarOak = Color(0xFF7B5A3C)
-private val CalendarEmber = Color(0xFFB14C24)
 private val CalendarMoss = Color(0xFF4F6A55)
-private val CalendarSoftGray = Color(0xFFF1EEE9)
 private val CalendarDanger = Color(0xFF9E3D32)
 
 fun calendarToday(): LocalDate = LocalDate.now(ZoneId.of("America/New_York"))
