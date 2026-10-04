@@ -1,0 +1,17 @@
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: geolocation=(), microphone=(), payment=()
+  X-Frame-Options: DENY
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://ttroukmpyerhtkskpdeg.supabase.co; connect-src 'self' https://ttroukmpyerhtkskpdeg.supabase.co wss://ttroukmpyerhtkskpdeg.supabase.co; font-src 'self' data:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; worker-src 'self'; manifest-src 'self'
+
+/operator*
+  Cache-Control: no-store
+
+/operator-sw.js
+  Cache-Control: no-cache
+  Service-Worker-Allowed: /operator
+
+/operator.webmanifest
+  Content-Type: application/manifest+json
+  Cache-Control: no-cache

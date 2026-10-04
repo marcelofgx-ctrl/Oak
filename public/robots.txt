@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /operator
+
+Sitemap: https://oak-79f.pages.dev/sitemap.xml

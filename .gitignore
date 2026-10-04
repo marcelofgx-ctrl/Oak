@@ -9,3 +9,9 @@ captures/
 .cxx/
 android/.gradle/
 android/app/build/
+node_modules/
+dist/
+.env
+.env.*
+!.env.example
+*.local
