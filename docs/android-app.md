@@ -1,28 +1,48 @@
-# Oak & Ember Android operator app
+# Oak & Ember Android 1.1
 
-An installable Capacitor Android application, package `com.oakandember.operator`, version 1.0 (code 1), minimum Android 7 / API 24. Its interface is bundled in the APK; it starts in the private operator workspace rather than loading the public website. Internet and a current Android System WebView are required for authentication and backend operations.
+Download: https://oak-79f.pages.dev/downloads/oak-ember.apk (redirects to version 1.1).
+Versioned file: https://oak-79f.pages.dev/downloads/oak-ember-1.1.apk.
 
-The application uses the dedicated Oak Supabase project and the same authorized account as the web panel. There is no password, server key or automatic login in the APK. Only approved operators can read requests and access signed private-photo links. It supports reviewing requests, calling/emailing clients using the device's installed handlers, changing status, saving notes and internal quote drafts. Quotes are not automatically sent. No appointment, payment or notification is created.
+## Update and activate alerts
 
-Mobile detail navigation includes a return-to-list action. Android Back returns from a selected request, then exits from the list/login screen. The native WebView disables debugging and mixed HTTP content. Application backup is disabled. Saved auth sessions remain in the app's private storage until logout; request records remain on the server. Offline mode blocks writes rather than reporting a false success.
+1. Download and install over the existing Oak & Ember app. Do not uninstall first. Package com.oakandember.operator and the release certificate are unchanged; versionCode is 2 / versionName 1.1.
+2. Keep Chrome updated. Open the Oak & Ember icon; sign in if requested.
+3. App y alertas → Activar alertas. Accept the notification permission.
+4. Probar alerta; check the notification on the phone. Android notification settings, battery restrictions and Do Not Disturb can affect delivery or banners.
 
-## Build
+Minimum Android 7 / API 24. The APK uses Android Browser Helper 2.7.3 to open the verified Oak HTTPS origin as a Trusted Web Activity through Chrome. It displays the same live operator workspace, with the refined paper texture and forest/copper palette, instead of the old bundled Capacitor WebView. Future workspace improvements arrive through the same site. Internet is required; no private offline cache is created.
 
-Node 22.12+, a complete JDK 21, Android SDK platform 36 and build-tools 35/36 are required.
+The signed package/domain association is published at /.well-known/assetlinks.json; the matching web-origin statement is included in Android resources. If browser verification cannot complete, a browser toolbar can appear rather than an unverified fullscreen origin. The activity ignores arbitrary incoming URLs and always launches the private operator route.
 
-```
+## Notifications and privacy
+
+Web Push uses the existing authenticated oak-push endpoint, server-side VAPID signing and a transactionally queued event on real intake. Chrome provides the background push transport. The Trusted Web Activity delegation service verifies the browser token, exposes a white notification icon, requests POST_NOTIFICATIONS on Android 13+, and enables a high-priority channel for popup notifications where OS settings allow. The app never embeds an FCM server key or a password and does not poll in a background service.
+
+Notification payloads reveal no customer details. An authorized login is required to read the private inbox. Statuses, notes and internal quotes remain on the same Oak backend used by iPhone and the web panel. Closing the session/desactivating alerts cancels the browser subscription. Authentication is now in Chrome's origin storage, so the former WebView session is not migrated; a new login can be required, but stored inquiries and quotes are unchanged.
+
+See docs/ios-app.md for server delivery, retry limits and subscription ownership checks. Version 1.0 remains archived and has no push integration.
+
+## Build and signing
+
+Node 22.12+, complete JDK 21, Android SDK 36 and build-tools 36 are required.
+
+```sh
 npm ci
-npm run android:sync
+npm run build
 cd android
 ./gradlew assembleRelease lintRelease
 ```
 
-Signing keys are never committed. `scripts/sign-android.sh` accepts a private keystore and a separate password file. Keep the signing backup securely: the same key is required to install updates over version 1.0. The password file belongs outside the repository.
+Do not run cap sync for this version: the app is a TWA. The android:sync script is retained as a compatibility alias for the web build. Native source settings do not include Capacitor modules or obsolete WebView assets.
 
-The Android build deliberately excludes `public/` except for the operator logo; downloadable APKs and website photographs are not nested inside later APK builds.
+Sign using scripts/sign-android.sh <private-keystore> <password-file> <output-apk>. Signing material remains outside Git; retain the same private backup for future updates. APK v2/v3 signatures and the unchanged certificate were checked. Public asset links contain only the certificate fingerprint, never the private key.
 
-## Checks
+## Verification and remaining phone checks
 
-ESLint, existing 11 model tests, website and Android interface builds; Android release compilation and lint (warnings only); APK signature verification. Browser testing of the packaged interface against the real backend confirmed authorized login, private inbox, notes/quote/status persistence after reload, offline-write blocking and logout. Layout checked at 320/390/1440 px. Temporary fixtures are removed after checking.
+- Release compilation and Android lint; frontend lint, build and 14 tests.
+- APK package/version/permissions, v2/v3 signature and certificate equality with 1.0; domain association matches the same fingerprint.
+- Chromium with Android viewport/user agent: real authorized login, Android-specific settings, activation control available, app context preserved across navigation, logout and no overflow at 320/390/1440.
+- Previous server checks verified subscription registration and ownership restrictions, private-key protection and generic notification handling.
+- Physical Android installation, fullscreen verification, native delegated permission prompts and push receipt are not verified by Chromium emulation. Use Probar alerta on the intended phone. The environment's prior Android emulator had an unrelated WebView crash and no compatible Chrome installed.
 
-The signed APK installed successfully in the Android 15 software emulator, but its WebView renderer subsequently crashed. The system WebView browser also crashed on about:blank, independently of the Oak app. Native visual/functional verification was therefore not passed in this environment; full behavior still requires testing on the intended phone. Browser checks of the bundled interface and real backend passed. Play Store publication, push notifications, automatic email/SMS, native customer app and persistent visit scheduling are outside this release.
+No Play Store publication, automatic appointment, payment, email or SMS is introduced.

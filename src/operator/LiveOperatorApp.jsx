@@ -34,6 +34,7 @@ export default function LiveOperatorApp() {
   setBusy(false)
  }
  useEffect(() => {
+  if(new URLSearchParams(location.search).get('source')==='android-app'){try{sessionStorage.setItem('oak-android-app','1')}catch{/* Installation hints only; not authorization. */}}
   document.documentElement.lang='es';document.title='Oak & Ember · Equipo'
   if(!native&&!document.querySelector('link[rel=manifest]')){
    const manifest=document.createElement('link');manifest.rel='manifest';manifest.href='/operator.webmanifest';document.head.appendChild(manifest)

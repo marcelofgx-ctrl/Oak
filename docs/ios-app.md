@@ -10,7 +10,7 @@ Panel: https://oak-79f.pages.dev/operator
 4. App y alertas → Activar alertas. Aceptar el permiso de iOS.
 5. Probar alerta y comprobar que aparece el aviso en el dispositivo.
 
-Es una PWA a pantalla completa, sin App Store ni cuota de Apple Developer. No es una IPA. Requiere conexión; no se guardan consultas ni fotos para uso offline. La APK Android 1.0 anterior no recibe estas notificaciones nativas; la PWA compatible sí puede activarlas.
+Es una PWA a pantalla completa, sin App Store ni cuota de Apple Developer. No es una IPA. Requiere conexión; no se guardan consultas ni fotos para uso offline. La APK Android 1.1 integra el mismo panel y Web Push mediante Chrome; ver docs/android-app.md. La versión Android 1.0 anterior no tiene esta integración.
 
 ## Privacidad y entrega
 
