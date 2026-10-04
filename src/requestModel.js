@@ -14,7 +14,7 @@ export function validateStep(step, data, today = todayLocal()) {
   if (step === 1 && !data.details.trim()) errors.details = 'Tell us a little about what you need.'
   if (step === 1 && data.details.length > 3000) errors.details = 'Keep the description within 3,000 characters.'
   if (step === 2) {
-    for (const key of ['name','phone','email','address','zip']) if (!data[key].trim()) errors[key] = 'Please complete this field.'
+    for (const key of ['name','zip',data.contact === 'Email' ? 'email' : 'phone']) if (!data[key].trim()) errors[key] = 'Please complete this field.'
     const digits = data.phone.replace(/\D/g,'')
     if (data.phone && !(digits.length === 10 || (digits.length === 11 && digits.startsWith('1')))) errors.phone = 'Enter a 10-digit US phone number, optionally with +1.'
     if (data.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) errors.email = 'Enter a valid email address.'
