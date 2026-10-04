@@ -21,7 +21,7 @@ export function validateStep(step, data, today = todayLocal()) {
     if (data.zip && !/^\d{5}(-\d{4})?$/.test(data.zip)) errors.zip = 'Enter a 5-digit ZIP code or ZIP+4.'
     if (data.date && (!/^\d{4}-\d{2}-\d{2}$/.test(data.date) || data.date < today)) errors.date = 'Choose today or a future date, or leave it blank.'
   }
-  if (step === 3 && !data.acknowledge) errors.acknowledge = 'Please acknowledge that this is a local demo.'
+  if (step === 3 && !data.acknowledge) errors.acknowledge = 'Please agree to being contacted about your request.'
   return errors
 }
 export function validatePhotos(files) {
