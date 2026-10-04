@@ -1,0 +1,14 @@
+{
+  "appId": "com.oakandember.operator",
+  "appName": "Oak & Ember",
+  "webDir": "dist-android",
+  "loggingBehavior": "none",
+  "android": {
+    "backgroundColor": "#17372d",
+    "allowMixedContent": false,
+    "webContentsDebuggingEnabled": false
+  },
+  "server": {
+    "androidScheme": "https"
+  }
+}

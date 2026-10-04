@@ -4,3 +4,8 @@ dist/
 *.local
 
 artifacts/
+
+dist-android/
+android/local.properties
+*.keystore
+*.jks

@@ -8,9 +8,15 @@
     "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint .",
-    "test": "node --test tests/*.test.mjs"
+    "test": "node --test tests/*.test.mjs",
+    "build:android": "VITE_APP_MODE=operator vite build --config vite.android.config.js && node scripts/copy-android-assets.mjs",
+    "android:sync": "npm run build:android && cap sync android",
+    "android:apk": "npm run android:sync && cd android && ./gradlew assembleDebug"
   },
   "dependencies": {
+    "@capacitor/android": "8.5.2",
+    "@capacitor/app": "8.0.1",
+    "@capacitor/core": "8.5.2",
     "@supabase/supabase-js": "2.57.4",
     "@vitejs/plugin-react": "latest",
     "lucide-react": "latest",
@@ -19,6 +25,7 @@
     "vite": "latest"
   },
   "devDependencies": {
+    "@capacitor/cli": "8.5.2",
     "@eslint/js": "^10.0.1",
     "eslint": "latest",
     "eslint-plugin-react-hooks": "latest",

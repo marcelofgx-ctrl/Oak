@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Oak &amp; Ember</string>
+    <string name="title_activity_main">Oak &amp; Ember</string>
+    <string name="package_name">com.oakandember.operator</string>
+    <string name="custom_url_scheme">com.oakandember.operator</string>
+</resources>
