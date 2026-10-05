@@ -1,3 +1,2 @@
-/operator /index.html 200
-/operator/ /index.html 200
-/operator/* /index.html 200
+/operator /operator/ 301
+/operator/* /operator/index.html 200
